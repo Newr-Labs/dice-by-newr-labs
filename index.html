@@ -1,1 +1,218 @@
-<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>DICE Application</title>\n</head>\n<body>\n    <h1>Welcome to the DICE Application</h1>\n    <p>This is the main structure of the DICE application.</p>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DICE by NEWR Labs - Let fate decide. A beautiful collection of random decision-making tools.">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://newr-labs.github.io/dice-by-newr-labs">
+    <meta property="og:title" content="DICE by NEWR Labs">
+    <meta property="og:description" content="Let fate decide - Random decision-making tools">
+    <meta property="og:image" content="https://newr-labs.github.io/dice-by-newr-labs/assets/social-preview.png">
+    
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://newr-labs.github.io/dice-by-newr-labs">
+    <meta property="twitter:title" content="DICE by NEWR Labs">
+    <meta property="twitter:description" content="Let fate decide">
+    <meta property="twitter:image" content="https://newr-labs.github.io/dice-by-newr-labs/assets/social-preview.png">
+    
+    <title>DICE by NEWR Labs - Let fate decide</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo">🎲</div>
+                <div class="brand">
+                    <span class="company">NEWR LABS</span>
+                    <span class="app-name">DICE</span>
+                </div>
+            </div>
+            <div class="tagline">Let fate decide</div>
+            <div class="header-actions">
+                <a href="https://github.com/Newr-Labs/dice-by-newr-labs" target="_blank" class="btn-header">
+                    <span>⭐ Star on GitHub</span>
+                </a>
+                <button class="btn-sound" id="soundToggle" title="Toggle sound effects">
+                    <span id="soundIcon">🔊</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+        <button class="tab-btn active" data-tab="dice-roll">🎲 Dice Roll</button>
+        <button class="tab-btn" data-tab="coin-flip">🪙 Coin Flip</button>
+        <button class="tab-btn" data-tab="yes-no-maybe">🎯 Yes/No/Maybe</button>
+        <button class="tab-btn" data-tab="random-number">🔢 Random Number</button>
+        <button class="tab-btn" data-tab="spin-wheel">🎡 Spin Wheel</button>
+        <button class="tab-btn" data-tab="random-picker">📋 Random Picker</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- 1. Dice Roll -->
+        <section id="dice-roll" class="tool-section active">
+            <h2>🎲 Dice Roll</h2>
+            <p class="tool-description">Roll dice and let fate decide</p>
+            
+            <div class="control-group">
+                <label for="diceCount">Number of Dice:</label>
+                <select id="diceCount">
+                    <option value="1">1 Die</option>
+                    <option value="2">2 Dice</option>
+                    <option value="3">3 Dice</option>
+                    <option value="4">4 Dice</option>
+                    <option value="5">5 Dice</option>
+                    <option value="6">6 Dice</option>
+                </select>
+            </div>
+
+            <button class="btn-primary" id="rollBtn">🎲 Roll Dice</button>
+
+            <div id="diceContainer" class="dice-container"></div>
+
+            <div id="diceResult" class="result-section" style="display: none;">
+                <div class="result-label">Total</div>
+                <div id="diceTotal" class="result-value">0</div>
+                <button class="btn-copy" data-copy="diceTotal">📋 Copy Result</button>
+            </div>
+        </section>
+
+        <!-- 2. Coin Flip -->
+        <section id="coin-flip" class="tool-section">
+            <h2>🪙 Coin Flip</h2>
+            <p class="tool-description">Heads or Tails - Let the coin decide</p>
+
+            <button class="btn-primary" id="flipBtn">🪙 Flip Coin</button>
+
+            <div id="coinContainer" class="coin-container">
+                <div id="coin" class="coin">
+                    <div class="coin-face heads">H</div>
+                    <div class="coin-face tails">T</div>
+                </div>
+            </div>
+
+            <div id="coinResult" class="result-section" style="display: none;">
+                <div class="result-label">Result</div>
+                <div id="coinOutcome" class="result-value">-</div>
+                <button class="btn-copy" data-copy="coinOutcome">📋 Copy Result</button>
+            </div>
+        </section>
+
+        <!-- 3. Yes/No/Maybe -->
+        <section id="yes-no-maybe" class="tool-section">
+            <h2>🎯 Yes/No/Maybe</h2>
+            <p class="tool-description">Ask a question and get a random answer</p>
+
+            <div class="control-group">
+                <label for="question">Your Question:</label>
+                <input type="text" id="question" placeholder="Will I win the lottery?" maxlength="100">
+            </div>
+
+            <button class="btn-primary" id="decideBtn">🎯 Ask the Universe</button>
+
+            <div id="decideResult" class="result-section" style="display: none;">
+                <div class="result-label">The Universe Says:</div>
+                <div id="decideOutcome" class="result-value decision">Maybe</div>
+                <button class="btn-copy" data-copy="decideOutcome">📋 Copy Result</button>
+            </div>
+        </section>
+
+        <!-- 4. Random Number -->
+        <section id="random-number" class="tool-section">
+            <h2>🔢 Random Number</h2>
+            <p class="tool-description">Generate a random number in your range</p>
+
+            <div class="control-group">
+                <label for="minNumber">Min:</label>
+                <input type="number" id="minNumber" value="1" placeholder="Min value">
+            </div>
+
+            <div class="control-group">
+                <label for="maxNumber">Max:</label>
+                <input type="number" id="maxNumber" value="100" placeholder="Max value">
+            </div>
+
+            <button class="btn-primary" id="randomBtn">🔢 Generate Number</button>
+
+            <div id="randomResult" class="result-section" style="display: none;">
+                <div class="result-label">Random Number</div>
+                <div id="randomValue" class="result-value">0</div>
+                <button class="btn-copy" data-copy="randomValue">📋 Copy Result</button>
+            </div>
+        </section>
+
+        <!-- 5. Spin the Wheel -->
+        <section id="spin-wheel" class="tool-section">
+            <h2>🎡 Spin the Wheel</h2>
+            <p class="tool-description">Add options and spin to pick one</p>
+
+            <div class="control-group">
+                <label for="wheelOptions">Options (comma-separated):</label>
+                <textarea id="wheelOptions" placeholder="Option 1, Option 2, Option 3&#10;Press Enter after pasting or typing"></textarea>
+            </div>
+
+            <button class="btn-primary" id="spinBtn">🎡 Spin the Wheel</button>
+
+            <div class="wheel-container" style="display: none;">
+                <div id="wheelCanvas" class="wheel-canvas"></div>
+                <button class="btn-primary" id="spinAgainBtn">Spin Again</button>
+            </div>
+
+            <div id="wheelResult" class="result-section" style="display: none;">
+                <div class="result-label">🎉 The Winner Is:</div>
+                <div id="wheelWinner" class="result-value">-</div>
+                <button class="btn-copy" data-copy="wheelWinner">📋 Copy Result</button>
+            </div>
+        </section>
+
+        <!-- 6. Random Picker -->
+        <section id="random-picker" class="tool-section">
+            <h2>📋 Random Picker</h2>
+            <p class="tool-description">Paste your list and pick one randomly</p>
+
+            <div class="control-group">
+                <label for="pickerList">Your List (one per line):</label>
+                <textarea id="pickerList" placeholder="Item 1&#10;Item 2&#10;Item 3"></textarea>
+            </div>
+
+            <button class="btn-primary" id="pickBtn">📋 Pick One</button>
+
+            <div id="pickerResult" class="result-section" style="display: none;">
+                <div class="result-label">🎉 Random Pick:</div>
+                <div id="pickerValue" class="result-value">-</div>
+                <button class="btn-copy" data-copy="pickerValue">📋 Copy Result</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Made with <span class="heart">❤️</span> by <a href="https://github.com/Newr-Labs" target="_blank">NEWR Labs</a></p>
+            <div class="footer-links">
+                <a href="https://github.com/Newr-Labs/dice-by-newr-labs" target="_blank">📂 GitHub</a>
+                <a href="https://github.com/Newr-Labs/dice-by-newr-labs/archive/refs/heads/main.zip">⬇️ Download ZIP</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Copy Notification -->
+    <div id="copyNotification" class="copy-notification">
+        ✓ Copied to clipboard!
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
