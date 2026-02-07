@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DICE | by NEWR Labs</title>
+    <meta name="description" content="Let fate decide. A premium suite of flat random decision tools.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="DICE by NEWR Labs">
+    <meta property="og:description" content="Let fate decide. Premium flat random decision tools.">
+    <meta property="og:image" content="https://picsum.photos/1200/630?grayscale">
+    <meta property="og:type" content="website">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                theme: 'var(--text)',
+                bg: 'var(--bg)',
+                surface: 'var(--surface)',
+                'surface-alt': 'var(--surface-alt)',
+                'muted-theme': 'var(--text-muted)',
+                'border-theme': 'var(--border)',
+                accent: 'var(--accent)',
+              },
+              animation: {
+                'spin-slow': 'spin 12s linear infinite',
+                'vibrate': 'vibrate 0.1s linear infinite',
+                'coin-toss': 'coin-toss-arc 1.2s cubic-bezier(0.15, 0.85, 0.35, 1) forwards',
+                'coin-spin': 'coin-strobe-flip 0.08s linear infinite',
+                'float-slow': 'float 20s ease-in-out infinite',
+                'twinkle': 'twinkle 4s ease-in-out infinite',
+                'nebula': 'nebula-drift 30s ease-in-out infinite',
+                'bokeh': 'bokeh-up 25s linear infinite',
+                'grid-scroll': 'grid-move 40s linear infinite',
+                'pulse-soft': 'pulse-soft 4s ease-in-out infinite',
+              },
+              keyframes: {
+                vibrate: {
+                  '0%, 100%': { transform: 'translate3d(0, 0, 0)' },
+                  '25%': { transform: 'translate3d(1px, -1px, 0)' },
+                  '50%': { transform: 'translate3d(-1px, 1px, 0)' },
+                  '75%': { transform: 'translate3d(1px, 1px, 0)' },
+                },
+                'coin-toss-arc': {
+                  '0%': { transform: 'translate3d(0, 0, 0) scale(1)', filter: 'blur(0px)' },
+                  '45%': { transform: 'translate3d(0, -280px, 0) scale(1.15)', filter: 'blur(2px)' },
+                  '100%': { transform: 'translate3d(0, 0, 0) scale(1)', filter: 'blur(0px)' },
+                },
+                'coin-strobe-flip': {
+                  '0%, 100%': { transform: 'scaleY(1)' },
+                  '50%': { transform: 'scaleY(0)' },
+                },
+                'float': {
+                  '0%, 100%': { transform: 'translate3d(0, 0, 0) rotate(0deg)' },
+                  '33%': { transform: 'translate3d(20px, -30px, 0) rotate(5deg)' },
+                  '66%': { transform: 'translate3d(-10px, 10px, 0) rotate(-3deg)' },
+                },
+                'nebula-drift': {
+                  '0%, 100%': { transform: 'translate3d(0, 0, 0) scale(1)', opacity: 0.1 },
+                  '50%': { transform: 'translate3d(50px, 30px, 0) scale(1.2)', opacity: 0.3 },
+                },
+                'bokeh-up': {
+                  '0%': { transform: 'translate3d(0, 110vh, 0) scale(1)', opacity: 0 },
+                  '10%': { opacity: 0.3 },
+                  '90%': { opacity: 0.3 },
+                  '100%': { transform: 'translate3d(0, -10vh, 0) scale(1.3)', opacity: 0 },
+                },
+                'grid-move': {
+                  '0%': { transform: 'translate3d(0, 0, 0)' },
+                  '100%': { transform: 'translate3d(0, 50px, 0)' },
+                },
+                'pulse-soft': {
+                  '0%, 100%': { opacity: 0.1, transform: 'scale(1)' },
+                  '50%': { opacity: 0.3, transform: 'scale(1.02)' },
+                }
+              }
+            }
+          }
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --dice-size: 84px;
+            --dice-dot-size: 12px;
+            --coin-size: 180px;
+            --accent: #6366F1;
+            --accent-rgb: 99, 102, 241;
+            --mouse-x: 50%;
+            --mouse-y: 50%;
+            --bg: #000000;
+            --text: #FFFFFF;
+            --text-muted: #71717a;
+            --surface: #09090b;
+            --surface-alt: #18181b;
+            --border: #27272a;
+        }
+
+        .midnight-mode { --bg: #020617; --text: #f8fafc; --text-muted: #64748b; --surface: #0f172a; --surface-alt: #1e293b; --border: #334155; }
+        .sepia-mode { --bg: #f5f5f4; --text: #1c1917; --text-muted: #78716c; --surface: #e7e5e4; --surface-alt: #d6d3d1; --border: #a8a29e; }
+        .light-mode { --bg: #ffffff; --text: #0f172a; --text-muted: #475569; --surface: #f1f5f9; --surface-alt: #e2e8f0; --border: #cbd5e1; }
+        .nord-mode { --bg: #2e3440; --text: #eceff4; --text-muted: #81a1c1; --surface: #3b4252; --surface-alt: #434c5e; --border: #4c566a; }
+        .sakura-mode { --bg: #fff5f7; --text: #d53f8c; --text-muted: #ed64a6; --surface: #fed7e2; --surface-alt: #fbb6ce; --border: #f687b3; }
+        .forest-mode { --bg: #061e13; --text: #9ae6b4; --text-muted: #68d391; --surface: #0b2e1d; --surface-alt: #13422b; --border: #1c5639; }
+
+        @media (max-width: 640px) {
+            :root { --dice-size: 60px; --dice-dot-size: 8px; --coin-size: 140px; }
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            transition: background-color 0.4s ease;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        @keyframes falling {
+            0% { transform: translate3d(0, -15vh, 0) rotate(0deg); opacity: 0; }
+            15% { opacity: var(--item-opacity, 0.4); }
+            85% { opacity: var(--item-opacity, 0.4); }
+            100% { transform: translate3d(var(--sway, 100px), 115vh, 0) rotate(360deg); opacity: 0; }
+        }
+
+        .falling-item {
+            position: absolute;
+            top: -100px;
+            animation: falling linear infinite;
+            will-change: transform;
+            pointer-events: none;
+        }
+
+        @keyframes noise {
+            0%, 100% { transform: translate3d(0,0,0) }
+            10% { transform: translate3d(-1%,-1%,0) }
+            50% { transform: translate3d(-2%,1%,0) }
+            90% { transform: translate3d(1%,0.5%,0) }
+        }
+
+        .grain-overlay {
+            position: fixed;
+            inset: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 100;
+            animation: noise 4s steps(4) infinite;
+            will-change: transform;
+        }
+
+        .cyber-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(var(--accent-rgb), 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(var(--accent-rgb), 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(circle at center, black, transparent 90%);
+            z-index: 0;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        .scanlines {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.02) 51%, transparent 51%);
+            background-size: 100% 4px;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0.2;
+        }
+
+        .animate-reveal { animation: reveal-scale 0.4s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
+        @keyframes reveal-scale {
+            0% { opacity: 0; transform: scale(0.95) translate3d(0, 10px, 0); }
+            100% { opacity: 1; transform: scale(1) translate3d(0, 0, 0); }
+        }
+        
+        @keyframes shadow-sync {
+            0%, 100% { transform: translate3d(-50%, 0, 0) scale(1); opacity: 0.2; }
+            45% { transform: translate3d(-25%, 0, 0) scale(2); opacity: 0.05; }
+        }
+        .shadow-grow { animation: shadow-sync 1.2s cubic-bezier(0.15, 0.85, 0.35, 1) forwards; }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.2.0",
+        "react-dom": "https://esm.sh/react-dom@18.2.0",
+        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+        "react/": "https://esm.sh/react@18.2.0/",
+        "react-dom/": "https://esm.sh/react-dom@18.2.0/",
+        "@google/genai": "https://esm.sh/@google/genai@^1.40.0"
+      }
+    }
+    </script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
+    <script>
+        // Use passive listener for zero-lag mouse tracking
+        document.addEventListener('mousemove', (e) => {
+            document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
+            document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
+        }, { passive: true });
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
